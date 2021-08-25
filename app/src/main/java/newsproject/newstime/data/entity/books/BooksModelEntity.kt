@@ -1,4 +1,4 @@
-package newsproject.newstime.data.entity
+package newsproject.newstime.data.entity.books
 
 
 class BooksModelEntity(

@@ -1,4 +1,3 @@
-package newsproject.newstime.data.entity.Books
+package newsproject.newstime.data.entity
 
-class AccountDetails {
-}
+data class AccountDetails (val id: Long? )
