@@ -18,8 +18,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField('String', 'BASE_URL', '"https://api.nytimes.com/svc/books/v1/"')
+        buildConfigField('String', 'BASE_URL', '"https://api.themoviedb.org/3/"')
         buildConfigField('String', 'SESSION_ID', '"2aea76592256aaf01bdcc9e4d278dfa7dec0f43f"')
+        buildConfigField('String', 'API_KEY', '"233caba7aa9d1f642774e5d659d2a694"')
         buildConfigField('String', 'HEADER_ID', '"Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMzNjYWJhN2FhOWQxZjY0Mjc3NGU1ZDY1OWQyYTY5NCIsInN1YiI6IjYxMDZhZjQ2ZjcwNmRlMDAyNmM1MzllNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.8ECh82GjIPyODRwMjO2qVPrbdAw5tbcQ3jY40mKI510"')
     }
 

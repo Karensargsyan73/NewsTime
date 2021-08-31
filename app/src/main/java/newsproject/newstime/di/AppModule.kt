@@ -10,7 +10,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import newsproject.newstime.BuildConfig
 import newsproject.newstime.data.source.Api
-import newsproject.newstime.ui.books.APP_PREFERENCES
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -24,11 +23,22 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class AppModule {
 
+    @Named("searchFilms")
+    @Provides
+    @Singleton
+    fun filmsApi(): Api = Retrofit
+        .Builder()
+        .baseUrl("https://api.themoviedb.org/3/")
+        .addConverterFactory(MoshiConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(Api::class.java)
+
     @Provides
     @Singleton
     fun booksApi(): Api = Retrofit
         .Builder()
-        .baseUrl(BuildConfig.BASE_URL)
+        .baseUrl("https://api.themoviedb.org/3/")
         .addConverterFactory(MoshiConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
@@ -39,7 +49,7 @@ class AppModule {
     @Singleton
     fun accountApi(okHttpClient: OkHttpClient): Api = Retrofit
         .Builder()
-        .baseUrl("https://api.themoviedb.org/3/")
+        .baseUrl(BuildConfig.BASE_URL)
         .addConverterFactory(MoshiConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .client(okHttpClient)
@@ -61,10 +71,6 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideSharedPreference(name: String, @ApplicationContext context: Context): SharedPreferences =
-        context.getSharedPreferences(name, MODE_PRIVATE)
-
-    @Provides
-    @Singleton
-    fun name(): String = APP_PREFERENCES
+    fun provideSharedPreference(@ApplicationContext context: Context): SharedPreferences =
+        context.getSharedPreferences("MySettings", MODE_PRIVATE)
 }

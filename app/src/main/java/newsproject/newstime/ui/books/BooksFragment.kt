@@ -11,7 +11,6 @@ import newsproject.newstime.R
 
 @AndroidEntryPoint
 class BooksFragment : Fragment(R.layout.fragment_book) {
-
     private val booksViewModel: BooksViewModel by viewModels()
     private val booksAdapter = BooksAdapter {
         booksViewModel.onBookClick(it)

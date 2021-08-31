@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import newsproject.newstime.R
 import newsproject.newstime.domain.model.BooksDetails
 
-class BooksAdapter(private val clickListener: (BooksDetails) -> Unit) :
+class BooksAdapter(private val cclickListener: (BooksDetails) -> Unit) :
     RecyclerView.Adapter<BooksAdapter.BooksViewHolder>() {
     private val items = mutableListOf<BooksDetails>()
 
@@ -29,6 +29,7 @@ class BooksAdapter(private val clickListener: (BooksDetails) -> Unit) :
 
 
     override fun getItemCount(): Int = items.size
+
     fun update(books: List<BooksDetails>) {
         items.clear()
         items.addAll(books)
@@ -43,7 +44,7 @@ class BooksAdapter(private val clickListener: (BooksDetails) -> Unit) :
 
         init {
             view.findViewById<View>(R.id.item_root).setOnClickListener {
-                clickListener.invoke(items[adapterPosition])
+//                clickListener.invoke(items[adapterPosition])
             }
         }
     }

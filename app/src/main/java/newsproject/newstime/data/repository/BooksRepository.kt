@@ -12,7 +12,7 @@ class BooksRepository @Inject constructor(
 ) {
     fun searchBooks(): Single<List<BooksDetails>> {
         return api
-            .search("x1y7hXdBYfSjCbbGrNCNnHUHGUP4DJ2a")
+            .searchApi("x1y7hXdBYfSjCbbGrNCNnHUHGUP4DJ2a")
             .map { entity ->
                 entity.body.map { booksModel ->
                     booksMappers.mapping(booksModel.book_details.first())

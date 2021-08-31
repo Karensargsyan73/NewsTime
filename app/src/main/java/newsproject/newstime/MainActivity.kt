@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        router.newRootScreen(Screens.books())
+        router.newRootScreen(Screens.filmListScreen())
     }
 
     override fun onResumeFragments() {
