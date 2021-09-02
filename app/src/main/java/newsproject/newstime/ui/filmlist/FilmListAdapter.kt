@@ -40,7 +40,6 @@ class FilmListAdapter(private val clickListener: (FilmsModel) -> Unit) :
         val image: ImageView = view.findViewById(R.id.film_image)
         val description: TextView = view.findViewById(R.id.film_description)
 
-
         init {
             view.findViewById<View>(R.id.item_film_root).setOnClickListener {
                 clickListener.invoke(films[adapterPosition])

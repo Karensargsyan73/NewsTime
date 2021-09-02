@@ -11,12 +11,13 @@ class FilmsRepository @Inject constructor(
     private val api: Api,
     private val filmsMapper: FilmsMapper
 ) {
-    fun searchFilms(query: String, language: String): Single<List<FilmsModel>> =
-        api
+    fun searchFilms(query: String, language: String): Single<List<FilmsModel>> {
+        return api
             .searchFilms(query, language, BuildConfig.API_KEY)
-            .map { entity ->
-                entity.results.map {
-                    filmsMapper.filmsMapping(it)
-                }
+            .map{ entity ->
+            entity.results.map {
+                filmsMapper.filmsMapping(it)
             }
+        }
+    }
 }

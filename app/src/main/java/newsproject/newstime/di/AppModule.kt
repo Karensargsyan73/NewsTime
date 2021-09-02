@@ -15,36 +15,12 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import zerobranch.androidremotedebugger.logging.NetLoggingInterceptor
-import javax.inject.Named
 import javax.inject.Singleton
-
 
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
 
-    @Named("searchFilms")
-    @Provides
-    @Singleton
-    fun filmsApi(): Api = Retrofit
-        .Builder()
-        .baseUrl("https://api.themoviedb.org/3/")
-        .addConverterFactory(MoshiConverterFactory.create())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(Api::class.java)
-
-    @Provides
-    @Singleton
-    fun booksApi(): Api = Retrofit
-        .Builder()
-        .baseUrl("https://api.themoviedb.org/3/")
-        .addConverterFactory(MoshiConverterFactory.create())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(Api::class.java)
-
-    @Named("accountApi")
     @Provides
     @Singleton
     fun accountApi(okHttpClient: OkHttpClient): Api = Retrofit

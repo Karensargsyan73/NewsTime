@@ -9,6 +9,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import newsproject.newstime.domain.model.FilmsModel
 import newsproject.newstime.domain.usecase.AccountUseCase
+import newsproject.newstime.domain.usecase.AddFilmUseCase
 import newsproject.newstime.domain.usecase.FilmsUseCase
 import javax.inject.Inject
 
@@ -16,31 +17,34 @@ import javax.inject.Inject
 class FilmListViewModel @Inject constructor(
     private val accountUseCase: AccountUseCase,
     private val filmsUseCase: FilmsUseCase,
+    private val addFilmUseCase: AddFilmUseCase,
     private val router: Router
 ) : ViewModel() {
 
     val setFilms = MutableLiveData<List<FilmsModel>>()
+    val favoriteFilms = MutableLiveData<List<FilmsModel>>()
 
-    private var accountDisposable = CompositeDisposable()
-    private var filmsDisposable = CompositeDisposable()
+    private var filmDisposable = CompositeDisposable()
 
     init {
         loadAccount()
         loadListFilm()
     }
 
-    fun onFilmClick(details: FilmsModel) {
+    fun onFilmClick(film: FilmsModel) {
 //        router.navigateTo(Screens.details(details))
+        addFilmsFavorite(film.id)
+        println()
     }
 
     private fun loadAccount() {
-        accountDisposable.add(
+        filmDisposable.add(
             accountUseCase.createAccount()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
-
+                        println()
                     },
                     {
                         it.printStackTrace()
@@ -51,7 +55,7 @@ class FilmListViewModel @Inject constructor(
     }
 
     private fun loadListFilm() {
-        filmsDisposable.add(
+        filmDisposable.add(
             filmsUseCase.searchListFilms("Потерянный", "ru-ru")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -68,9 +72,26 @@ class FilmListViewModel @Inject constructor(
         )
     }
 
+    fun addFilmsFavorite(filmId: Int) {
+        filmDisposable.add(
+            addFilmUseCase.addFilmFavorite("ru-ru", filmId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+//                        addFilmUseCase.addFilmFavorite("ru-ru", filmId)
+                        println()
+                    },
+                    {
+                        it.printStackTrace()
+                        println()
+                    }
+                )
+        )
+    }
+
     override fun onCleared() {
         super.onCleared()
-        accountDisposable.dispose()
-        filmsDisposable.dispose()
+        filmDisposable.dispose()
     }
 }

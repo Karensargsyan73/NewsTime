@@ -8,6 +8,7 @@ import javax.inject.Inject
 class FilmsUseCase @Inject constructor(
     private val filmsRepository: FilmsRepository
 ) {
-    fun searchListFilms(query: String, language: String): Single<List<FilmsModel>> =
-        filmsRepository.searchFilms(query, language)
+    fun searchListFilms(query: String, language: String): Single<List<FilmsModel>> {
+        return filmsRepository.searchFilms(query, language)
+    }
 }
